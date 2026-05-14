@@ -1,0 +1,111 @@
+name: milopure
+description: "A new Flutter project."
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  fl_sdp: ^0.0.3
+  flutter_bloc: ^9.1.1
+  equatable: ^2.0.8
+  dio: ^5.9.1
+  flutter_dotenv: ^6.0.0
+  # Bluetooth connectivity
+  flutter_blue_plus: ^1.36.8
+  permission_handler: ^12.0.1
+  tflite_flutter: ^0.12.1 # TensorFlow Lite for ondevice ML
+  flutter_secure_storage: ^10.0.0 # For secure token storage
+  path_provider: ^2.1.5 # For accessing app directories
+  sms_autofill: ^2.4.1 # For OTP autofill from SMS
+  audioplayers: ^6.5.1
+  mqtt_client: ^10.11.9 # For MQTT communication
+  connectivity_plus: ^7.0.0 # For network status monitoring
+  uuid: ^4.5.2 # For generating unique IDs
+  hive_ce: ^2.19.3
+  hive_ce_flutter: ^2.3.4
+  local_auth: ^2.1.6
+  pinput: ^5.0.1
+  geofence_foreground_service: 1.1.5
+  geolocator: ^14.0.0
+  flutter_local_notifications: ^18.0.0
+  sqflite: ^2.4.1
+  dart_geohash: ^2.1.0
+  html: ^0.15.6
+  flutter_svg: ^2.0.10
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.13.1
+  build_runner: ^2.4.6
+  hive_ce_generator: ^1.4.0
+
+flutter:
+  uses-material-design: true
+  
+  assets:
+    - .env
+    - assets/images/
+    - assets/images/onboarding_Images/
+    - assets/icons/
+    - assets/notification_icons/
+    - assets/sounds/ting_clean.mp3
+    - assets/sounds/warning_alert.mp3
+    - assets/sounds/digital_tick.mp3
+
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Lexend-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lexend-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Lexend-Bold.ttf
+          weight: 700
+    - family: Digital-7
+      fonts:
+        - asset: assets/fonts/digital-7.ttf
+        - asset: assets/fonts/digital-7 (italic).ttf
+          style: italic
+        - asset: assets/fonts/digital-7 (mono).ttf
+        - asset: assets/fonts/digital-7 (mono italic).ttf
+          style: italic
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  web:
+    generate: true
+    image_path: "assets/images/logo.png"
+  windows:
+    generate: true
+    image_path: "assets/images/logo.png"
+  macos:
+    generate: true
+    image_path: "assets/images/logo.png"
+  image_path: "assets/images/logo.png"
+  min_sdk_android: 21
+
+msix_config:
+  display_name: Milopure
+  publisher_display_name: Milopure
+  identity_name: com.milopure.app
+  msix_version: 1.0.0.0
+  logo_path: windows/runner/resources/app_icon.ico
+  capabilities: internetClient
+  languages: en-us
+  store: false
+  # publisher: CN=SuperAwesomeApps, O=SuperAwesomeApps Corporation, C=US
+  sign_msix: false # Set to true if you have a code signing certificate
+  certificate_path: null
+  certificate_password: null
