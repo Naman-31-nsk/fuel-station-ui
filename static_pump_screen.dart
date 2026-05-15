@@ -2,89 +2,82 @@ import 'dart:ui';
 import 'package:fl_sdp/fl_sdp.dart';
 import 'package:flutter/material.dart';
 
+// ─────────────────────────────────────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────────────────────────────────────
+
+final List<Map<String, String>> _pumps = [
+  {
+    'name': 'Naresh Trading Company',
+    'brand': 'Indian Oil (COCO)',
+    'distance': '> 4km',
+    'isVerified': 'false',
+  },
+  {
+    'name': 'Sharma Petroleum Service',
+    'brand': 'Indian Oil (COCO)',
+    'distance': '> 4km',
+    'isVerified': 'false',
+  },
+  {
+    'name': 'Ravi Fuel Station',
+    'brand': 'Bharat Petroleum',
+    'distance': '> 4km',
+    'isVerified': 'false',
+  },
+  {
+    'name': 'Singh Petroleum',
+    'brand': 'Indian Oil (COCO)',
+    'distance': '> 4km',
+    'isVerified': 'true',
+  },
+  {
+    'name': 'Gupta Service Station',
+    'brand': 'Bharat Petroleum',
+    'distance': '> 4km',
+    'isVerified': 'true',
+  },
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SHADOWS
+// ─────────────────────────────────────────────────────────────────────────────
+
+const List<BoxShadow> _cardShadows = [
+  BoxShadow(
+    color: Color.fromRGBO(50, 50, 71, 0.05),
+    offset: Offset(0, 2.65),
+    blurRadius: 7.06,
+    spreadRadius: -0.88,
+  ),
+  BoxShadow(
+    color: Color.fromRGBO(12, 26, 75, 0.24),
+    offset: Offset(0, 0),
+    blurRadius: 0.88,
+    spreadRadius: 0,
+  ),
+];
+
+// ─────────────────────────────────────────────────────────────────────────────
+// SCREEN
+// ─────────────────────────────────────────────────────────────────────────────
+
 class StaticPumpScreen extends StatelessWidget {
   final VoidCallback? onBack;
 
   const StaticPumpScreen({super.key, this.onBack});
 
-  static final List<Map<String, String>> _pumps = [
-    {
-      'name': 'Naresh Trading Company',
-      'brand': 'Indian Oil (COCO)',
-      'distance': '> 4km',
-      'isVerified': 'false',
-    },
-    {
-      'name': 'Sharma Petroleum Service',
-      'brand': 'Indian Oil (COCO)',
-      'distance': '> 4km',
-      'isVerified': 'false',
-    },
-    {
-      'name': 'Ravi Fuel Station',
-      'brand': 'Bharat Petroleum',
-      'distance': '> 4km',
-      'isVerified': 'false',
-    },
-    {
-      'name': 'Singh Petroleum',
-      'brand': 'Indian Oil (COCO)',
-      'distance': '> 4km',
-      'isVerified': 'true',
-    },
-    {
-      'name': 'Gupta Service Station',
-      'brand': 'Bharat Petroleum',
-      'distance': '> 4km',
-      'isVerified': 'false',
-    },
-    {
-      'name': 'Kumar Fuel Point',
-      'brand': 'Indian Oil (COCO)',
-      'distance': '> 4km',
-      'isVerified': 'false',
-    },
-    {
-      'name': 'Verma Petroleum',
-      'brand': 'Bharat Petroleum',
-      'distance': '> 4km',
-      'isVerified': 'true',
-    },
-    {
-      'name': 'Patel Fuel Station',
-      'brand': 'Indian Oil (COCO)',
-      'distance': '> 4km',
-      'isVerified': 'false',
-    },
-  ];
-
-  // Figma shadows — shared by both card types
-  static const List<BoxShadow> _cardShadows = [
-    BoxShadow(
-      color: Color.fromRGBO(50, 50, 71, 0.05), // #323247 5%
-      offset: Offset(0, 2.65),
-      blurRadius: 7.06,
-      spreadRadius: -0.88,
-    ),
-    BoxShadow(
-      color: Color.fromRGBO(12, 26, 75, 0.24), // #0C1A4B 24%
-      offset: Offset(0, 0),
-      blurRadius: 0.88,
-      spreadRadius: 0,
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // ── Navbar background: #070707 ─────────────────────────────────────────
       backgroundColor: const Color(0xFF070707),
+
       body: Stack(
         children: [
-          // ── Dark base ──────────────────────────────────────────────────────
+          // BACKGROUND
           Positioned.fill(child: Container(color: const Color(0xFF070707))),
 
-          // ── Background glow ────────────────────────────────────────────────
+          // RED GLOW
           Positioned(
             left: 23,
             top: -30,
@@ -92,12 +85,13 @@ class StaticPumpScreen extends StatelessWidget {
               child: Container(
                 width: 447,
                 height: 440,
+
                 decoration: BoxDecoration(
-                  color: Colors.transparent,
                   borderRadius: BorderRadius.circular(220),
+
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF5A1010).withOpacity(0.7),
+                      color: const Color(0xFFFF0000).withOpacity(0.25),
                       blurRadius: 180,
                       spreadRadius: 40,
                     ),
@@ -107,91 +101,96 @@ class StaticPumpScreen extends StatelessWidget {
             ),
           ),
 
-          // ── Main content ───────────────────────────────────────────────────
+          // MAIN CONTENT
           SafeArea(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ── HEADER — bg: #070707 ───────────────────────────────────
-                Container(
-                  color: const Color(0xFF070707),
-                  padding: EdgeInsets.symmetric(horizontal: SDP.sdp(16)),
-                  child: SizedBox(
-                    height: SDP.sdp(60),
-                    child: Row(
-                      children: [
-                        // Back arrow — bg: #232728
-                        GestureDetector(
-                          onTap: () {
-                            if (onBack != null) {
-                              onBack!();
-                            } else {
-                              Navigator.of(context).maybePop();
-                            }
-                          },
-                          child: Container(
-                            width: SDP.sdp(36),
-                            height: SDP.sdp(36),
-                            decoration: BoxDecoration(
-                              // ── Arrow circle bg: #232728 ──────────────────
-                              color: const Color(0xFF232728),
-                              shape: BoxShape.circle,
-                            ),
-                            child: Center(
-                              child: Icon(
-                                Icons.arrow_back,
-                                color: Colors.white,
-                                size: SDP.sdp(18),
-                              ),
-                            ),
-                          ),
-                        ),
+                // HEADER
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: SDP.sdp(18),
+                    vertical: SDP.sdp(10),
+                  ),
 
-                        // Title
-                        Expanded(
+                  child: Row(
+                    children: [
+                      // BACK BUTTON
+                      GestureDetector(
+                        onTap: () {
+                          if (onBack != null) {
+                            onBack!();
+                          } else {
+                            Navigator.of(context).maybePop();
+                          }
+                        },
+
+                        child: Container(
+                          width: SDP.sdp(36),
+                          height: SDP.sdp(36),
+
+                          decoration: const BoxDecoration(
+                            color: Color(0xFF232728),
+                            shape: BoxShape.circle,
+                          ),
+
                           child: Center(
-                            child: Text(
-                              'Fuel station Near by',
-                              style: TextStyle(
-                                fontSize: SDP.sdp(18),
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white,
-                                fontFamily: 'Lexend',
-                              ),
+                            child: Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                              size: SDP.sdp(18),
                             ),
                           ),
                         ),
+                      ),
 
-                        // Filter icon
-                        Icon(
-                          Icons.tune,
-                          color: Colors.white,
-                          size: SDP.sdp(22),
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            'Fuel station Near by',
+
+                            style: TextStyle(
+                              fontFamily: 'Lexend',
+                              fontWeight: FontWeight.w500,
+                              fontSize: SDP.sdp(16.84),
+                              height: 1,
+                              letterSpacing: 0,
+                              color: Colors.white,
+                            ),
+                          ),
                         ),
-                      ],
-                    ),
+                      ),
+
+                      Icon(Icons.tune, color: Colors.white, size: SDP.sdp(22)),
+                    ],
                   ),
                 ),
 
-                // ── Cards list ─────────────────────────────────────────────
-                // Figma: width 337.29, left 19, gap 9.71
+                // LIST
                 Expanded(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: SDP.sdp(19)),
+
                     child: ListView.separated(
+                      physics: const BouncingScrollPhysics(),
+
                       padding: EdgeInsets.only(
-                        top: SDP.sdp(12),
+                        top: SDP.sdp(10),
                         bottom: SDP.sdp(30),
                       ),
+
                       itemCount: _pumps.length,
+
                       separatorBuilder: (_, __) =>
                           SizedBox(height: SDP.sdp(9.71)),
+
                       itemBuilder: (context, index) {
                         final pump = _pumps[index];
-                        final isVerified = pump['isVerified'] == 'true';
+
+                        final bool isVerified = pump['isVerified'] == 'true';
+
                         return isVerified
-                            ? _VerifiedCard(pump: pump, shadows: _cardShadows)
-                            : _StandardCard(pump: pump, shadows: _cardShadows);
+                            ? _VerifiedCard(pump: pump)
+                            : _StandardCard(pump: pump);
                       },
                     ),
                   ),
@@ -207,148 +206,212 @@ class StaticPumpScreen extends StatelessWidget {
 
 // ─────────────────────────────────────────────────────────────────────────────
 // STANDARD CARD
-// Figma: width 309.05  height 70.64  bg #ABABAB solid  radius 8.83
 // ─────────────────────────────────────────────────────────────────────────────
+
 class _StandardCard extends StatelessWidget {
   final Map<String, String> pump;
-  final List<BoxShadow> shadows;
 
-  const _StandardCard({required this.pump, required this.shadows});
+  const _StandardCard({required this.pump});
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: SDP.sdp(309.05),
       height: SDP.sdp(70.64),
+
       padding: EdgeInsets.symmetric(horizontal: SDP.sdp(14)),
+
       decoration: BoxDecoration(
-        color: const Color(0xFFABABAB), // Figma: #ABABAB solid
+        color: const Color(0xFFABABAB),
+
         borderRadius: BorderRadius.circular(SDP.sdp(8.83)),
-        boxShadow: shadows,
+
+        boxShadow: _cardShadows,
       ),
-      child: _CardRow(pump: pump),
+
+      child: _CardRow(pump: pump, blur: false),
     );
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // VERIFIED CARD
-// Top:    309.05 × 70.64  bg #ABABAB solid
-// Banner: 309.05 × 52.10  gradient #FF7655→#FF0000  bottom-radius 8.83
 // ─────────────────────────────────────────────────────────────────────────────
+
 class _VerifiedCard extends StatelessWidget {
   final Map<String, String> pump;
-  final List<BoxShadow> shadows;
 
-  const _VerifiedCard({required this.pump, required this.shadows});
+  const _VerifiedCard({required this.pump});
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(SDP.sdp(8.83)),
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(SDP.sdp(8.83)),
-          boxShadow: shadows,
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        color: const Color(0xFFABABAB),
+
+        borderRadius: BorderRadius.circular(SDP.sdp(8.83)),
+
+        boxShadow: _cardShadows,
+      ),
+
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(SDP.sdp(8.83)),
+
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            // ── Top card section ───────────────────────────────────────────
-            Container(
-              height: SDP.sdp(70.64),
-              padding: EdgeInsets.symmetric(horizontal: SDP.sdp(14)),
-              decoration: const BoxDecoration(
-                color: Color(0xFFABABAB), // Figma: #ABABAB solid
-              ),
-              child: _CardRow(pump: pump),
-            ),
 
-            // ── Red gradient banner ────────────────────────────────────────
-            // Figma: height 52.10  131.68deg #FF7655→#FF0000  bottom-radius 8.83
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(SDP.sdp(8.83)),
-                bottomRight: Radius.circular(SDP.sdp(8.83)),
-              ),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Container(
-                  height: SDP.sdp(52.10),
-                  padding: EdgeInsets.symmetric(horizontal: SDP.sdp(13.24)),
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment(-0.63, -0.78),
-                      end: Alignment(0.63, 0.78),
-                      stops: [0.1688, 0.9348],
-                      colors: [Color(0xFFFF7655), Color(0xFFFF0000)],
+          children: [
+            // TOP BLUR SECTION
+            Container(
+              height: SDP.sdp(47.68),
+
+              color: const Color(0xFFABABAB),
+
+              padding: EdgeInsets.symmetric(horizontal: SDP.sdp(14)),
+
+              child: Row(
+                children: [
+                  Expanded(
+                    child: ClipRect(
+                      child: ImageFiltered(
+                        imageFilter: ImageFilter.blur(
+                          sigmaX: 5.74,
+                          sigmaY: 5.74,
+                        ),
+
+                        child: _CardRow(pump: pump, blur: true),
+                      ),
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+
+                  SizedBox(width: SDP.sdp(8)),
+
+                  // NAVIGATION BUTTON
+                  Container(
+                    width: SDP.sdp(28.41),
+                    height: SDP.sdp(28.25),
+
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF232728),
+                      shape: BoxShape.circle,
+
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.10),
+                          offset: const Offset(0, 6.42),
+                          blurRadius: 16.7,
+                          spreadRadius: 0,
+                        ),
+                      ],
+                    ),
+
+                    child: Center(
+                      child: Icon(
+                        Icons.arrow_forward_rounded,
+                        size: SDP.sdp(11.27),
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // VERIFIED BAR
+            Container(
+              height: SDP.sdp(52.10),
+
+              padding: EdgeInsets.symmetric(horizontal: SDP.sdp(13.24)),
+
+              decoration: const BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment(-0.7, -0.7),
+                  end: Alignment(0.7, 0.7),
+
+                  colors: [Color(0xFFFF7655), Color(0xFFFF0000)],
+
+                  stops: [0.1688, 0.9348],
+                ),
+
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(8.83),
+                  bottomRight: Radius.circular(8.83),
+                ),
+              ),
+
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+
+                children: [
+                  Row(
                     children: [
-                      // Label + tick
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Flexible(
-                            child: Text(
-                              'Milopure Trusted Pump (Verified fuel )',
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontFamily: 'Lexend',
-                                fontWeight: FontWeight.w400,
-                                fontSize: SDP.sdp(12.36),
-                                height: 1.0,
-                                letterSpacing: 0,
-                                color: Colors.white,
-                              ),
-                            ),
+                      Expanded(
+                        child: Text(
+                          'Milopure Trusted Pump (Verified fuel)',
+
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+
+                          style: TextStyle(
+                            fontFamily: 'Lexend',
+                            fontWeight: FontWeight.w400,
+                            fontSize: SDP.sdp(12.36),
+                            color: Colors.white,
+                            height: 1,
                           ),
-                          SizedBox(width: SDP.sdp(4)),
-                          // Tick badge: white circle 13.24 × 13.24
-                          Container(
-                            width: SDP.sdp(13.24),
-                            height: SDP.sdp(13.24),
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                              shape: BoxShape.circle,
-                            ),
-                            padding: EdgeInsets.all(SDP.sdp(2.5)),
-                            child: ColorFiltered(
-                              colorFilter: const ColorFilter.mode(
-                                Color(0xFFFF3B30), // Figma tick color
-                                BlendMode.srcIn,
-                              ),
-                              child: Image.asset(
-                                'assets/images/Vector.png',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
 
-                      SizedBox(height: SDP.sdp(4)),
+                      SizedBox(width: SDP.sdp(6)),
 
-                      // Subtitle
-                      Text(
-                        'Consistently safe based on Milopure data',
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontFamily: 'Lexend',
-                          fontWeight: FontWeight.w300,
-                          fontSize: SDP.sdp(8.83),
-                          height: 1.0,
-                          letterSpacing: 0,
-                          color: Colors.white,
+                      // VERIFIED TICK
+                      SizedBox(
+                        width: SDP.sdp(13.24),
+                        height: SDP.sdp(12.36),
+
+                        child: Stack(
+                          alignment: Alignment.center,
+
+                          children: [
+                            Icon(
+                              Icons.verified,
+                              size: SDP.sdp(13.24),
+                              color: Colors.white,
+                            ),
+
+                            Positioned(
+                              top: SDP.sdp(3.1),
+
+                              child: Icon(
+                                Icons.check,
+                                size: SDP.sdp(6.2),
+                                color: const Color(0xFFFF3B30),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                ),
+
+                  SizedBox(height: SDP.sdp(4)),
+
+                  Text(
+                    'Consistently safe based on Milopure data',
+
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+
+                    style: TextStyle(
+                      fontFamily: 'Lexend',
+                      fontWeight: FontWeight.w300,
+                      fontSize: SDP.sdp(8.83),
+                      color: Colors.white,
+                      height: 1,
+                    ),
+                  ),
+                ],
               ),
             ),
           ],
@@ -359,102 +422,123 @@ class _VerifiedCard extends StatelessWidget {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// SHARED ROW — inside every card
-// Card is solid #ABABAB so text uses dark colors
+// CARD ROW
 // ─────────────────────────────────────────────────────────────────────────────
+
 class _CardRow extends StatelessWidget {
   final Map<String, String> pump;
+  final bool blur;
 
-  const _CardRow({required this.pump});
+  const _CardRow({required this.pump, required this.blur});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        // ── Logo circle ───────────────────────────────────────────────────
+        // LOGO
         Container(
-          width: SDP.sdp(38),
-          height: SDP.sdp(38),
+          width: SDP.sdp(42.38),
+          height: SDP.sdp(42.38),
+
           decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.10),
             shape: BoxShape.circle,
+            color: Colors.white.withOpacity(0.95),
           ),
-          child: Center(
-            child: Text(
-              pump['name']![0].toUpperCase(),
-              style: TextStyle(
-                color: const Color(0xFF121212),
-                fontWeight: FontWeight.w700,
-                fontSize: SDP.sdp(14),
-                fontFamily: 'Lexend',
-              ),
+
+          padding: EdgeInsets.all(SDP.sdp(6)),
+
+          child: ClipOval(
+            child: Image.asset(
+              'assets/images/indian_oil.png',
+
+              fit: BoxFit.contain,
+
+              errorBuilder: (_, __, ___) {
+                return Icon(
+                  Icons.local_gas_station,
+                  color: const Color(0xFF070707),
+                  size: SDP.sdp(18),
+                );
+              },
             ),
           ),
         ),
 
         SizedBox(width: SDP.sdp(12)),
 
-        // ── Name + brand + distance ───────────────────────────────────────
+        // TEXT
         Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
+
             children: [
               Text(
                 pump['name']!,
+
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
+
                 style: TextStyle(
-                  fontSize: SDP.sdp(12.36),
-                  color: const Color(0xFF121212),
                   fontFamily: 'Lexend',
                   fontWeight: FontWeight.w600,
-                  height: 1.0,
-                  letterSpacing: 0,
+                  fontSize: SDP.sdp(12.36),
+                  color: const Color(0xFF121212),
+                  height: 1,
                 ),
               ),
+
               SizedBox(height: SDP.sdp(4)),
+
               Row(
                 children: [
                   Flexible(
                     child: Text(
                       pump['brand']!,
+
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
+
                       style: TextStyle(
                         fontFamily: 'Lexend',
                         fontWeight: FontWeight.w400,
                         fontSize: SDP.sdp(10.6),
-                        height: 1.0,
-                        letterSpacing: 0,
                         color: const Color(0xFF4A4A4A),
+                        height: 1,
                       ),
                     ),
                   ),
+
                   SizedBox(width: SDP.sdp(4)),
+
                   Text(
                     '|',
+
                     style: TextStyle(
                       color: Colors.black38,
-                      fontSize: SDP.sdp(10.6),
+                      fontSize: SDP.sdp(10),
                     ),
                   ),
+
                   SizedBox(width: SDP.sdp(4)),
+
                   Icon(
                     Icons.near_me,
-                    size: SDP.sdp(10),
-                    color: const Color(0xFF4A4A4A),
+                    size: SDP.sdp(9.5),
+                    color: const Color(0xFF070707),
                   ),
+
                   SizedBox(width: SDP.sdp(2)),
+
                   Text(
                     pump['distance']!,
+
                     style: TextStyle(
-                      fontFamily: 'Lexend',
+                      fontFamily: 'Open Sans',
                       fontWeight: FontWeight.w400,
                       fontSize: SDP.sdp(10.6),
-                      height: 1.0,
-                      letterSpacing: 0,
                       color: const Color(0xFF4A4A4A),
+                      height: 1.2,
                     ),
                   ),
                 ],
@@ -463,24 +547,37 @@ class _CardRow extends StatelessWidget {
           ),
         ),
 
-        SizedBox(width: SDP.sdp(8)),
+        // NORMAL CARD ARROW
+        if (!blur) ...[
+          SizedBox(width: SDP.sdp(8)),
 
-        // ── Arrow button — bg: #232728 ────────────────────────────────────
-        Container(
-          width: SDP.sdp(26),
-          height: SDP.sdp(26),
-          decoration: const BoxDecoration(
-            color: Color(0xFF232728), // Figma: #232728
-            shape: BoxShape.circle,
-          ),
-          child: Center(
-            child: Icon(
-              Icons.arrow_forward_rounded,
-              size: SDP.sdp(12),
-              color: Colors.white,
+          Container(
+            width: SDP.sdp(28.41),
+            height: SDP.sdp(28.25),
+
+            decoration: BoxDecoration(
+              color: const Color(0xFF232728),
+              shape: BoxShape.circle,
+
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.10),
+                  offset: const Offset(0, 6.42),
+                  blurRadius: 16.7,
+                  spreadRadius: 0,
+                ),
+              ],
+            ),
+
+            child: Center(
+              child: Icon(
+                Icons.arrow_forward_rounded,
+                size: SDP.sdp(11.27),
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
+        ],
       ],
     );
   }
